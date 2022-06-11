@@ -4,21 +4,60 @@ import styled from 'styled-components';
 import { GoRepo, GoGist } from 'react-icons/go';
 import { FiUsers, FiUserPlus } from 'react-icons/fi';
 
-/**Github-search-users app version 1 - 'info' Component - 
+/**Github-search-users app version 2 - 'info' Component - 
  * Features:
  * 
- *      --> Testing 'data' consume using 'useContext' 
- *          hook.
+ *      --> Destructuring 'githubUser' on 'React.useContex'.
  * 
+ *      --> Destructuring specific props from 'githubUser'
+ *          to build 'UserInfoData'.
  * 
- * Notes: implementing 'useContext' hook i consume the 'data'
- * from the 'Provider' -consume data test-
+ * Notes: check readme 'GITHUB API' to customize mock
+ * data, the data is used as local to not ran out
+ * of request (max of 60)
 */
 
 const UserInfo = () => {
-  const data = React.useContext(GithubContext)
-  console.log('this is provided by GitHubProvider ==>', data)
-  return <h2>user info component: {data}</h2>;
+
+  const { githubUser } = React.useContext(GithubContext)
+  const { public_repos, 
+          followers, 
+          following, 
+          public_gists } = githubUser;
+
+  const UserInfoData = [
+  {
+    id:1, 
+    icon: <GoRepo className='icon'/>, 
+    label: 'repos',
+    value:public_repos, 
+    color: 'pink'
+  },
+  {
+    id:2, 
+    icon: <FiUsers className='icon'/>, 
+    label: 'followers',
+    value: followers, 
+    color: 'green'
+  },
+  {
+    id:3, 
+    icon: <FiUserPlus className='icon'/>, 
+    label: 'following',
+    value: following, 
+    color: 'purple'
+  },
+  {
+    id:4, 
+    icon: <GoGist className='icon'/>, 
+    label: 'gists',
+    value: public_gists, 
+    color: 'yello'
+  }
+]
+          
+  console.log('this is provided by GitHubProvider ==>', githubUser)
+  return <h2>user info component: </h2>;
 };
 
 const Wrapper = styled.section`
