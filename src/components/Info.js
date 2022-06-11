@@ -4,17 +4,18 @@ import styled from 'styled-components';
 import { GoRepo, GoGist } from 'react-icons/go';
 import { FiUsers, FiUserPlus } from 'react-icons/fi';
 
-/**Github-search-users app version 2 - 'info' Component - 
+/**Github-search-users app version 3 - 'info' Component - 
  * Features:
  * 
- *      --> Destructuring 'githubUser' on 'React.useContex'.
- * 
- *      --> Destructuring specific props from 'githubUser'
- *          to build 'UserInfoData'.
+ *      --> Rendering and displaying  props from 
+ *          'UserInfoData'.
  * 
  * Notes: check readme 'GITHUB API' to customize mock
  * data, the data is used as local to not ran out
  * of request (max of 60)
+ * 
+ * the array of data previously build on 'UserInfoData',
+ * now is render in this version.
 */
 
 const UserInfo = () => {
@@ -57,8 +58,32 @@ const UserInfo = () => {
 ]
           
   console.log('this is provided by GitHubProvider ==>', githubUser)
-  return <h2>user info component: </h2>;
+  
+  return(
+    /**here i made a render by 'id' and spreading 'props'*/
+    <section className='section'>
+      <Wrapper className='section-center'>
+        {UserInfoData.map((infodata) => {
+          return <Items key={infodata.id} {...infodata}/>
+        })}
+      </Wrapper>
+    </section>
+  );
 };
+
+/**here i made the 'Item' component with the specific
+ * 'props' that are gonna be spreaded above*/
+const Items = ({ icon, label, value, color }) => {
+  return(
+    <article className='item'>
+      <span className={color}>{icon}</span>
+      <div>
+        <h3>{value}</h3>
+        <p>{label}</p>
+      </div>
+    </article>
+  )
+}
 
 const Wrapper = styled.section`
   display: grid;
