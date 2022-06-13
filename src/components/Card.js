@@ -2,8 +2,66 @@ import React from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
+
+/**Github-search-users app version 3 - 'User' js file - 
+ * Features:
+ * 
+ *      --> Destructuring 'githubUser' on  'useContext'.
+ * 
+ *      --> Destructuring specific props in order to 
+ *          render specific 'user' information.
+ * 
+ *      --> Placing icons next to the props being 
+ *          rendered.
+ * 
+ *      --> Wraaping 'props' using 'Wrapper' Style 
+ *          Component to set styles
+ * 
+ * Notes:  This Component renders specific information about
+ * the user.
+ * */
+
 const Card = () => {
-  return <h2>card component</h2>;
+
+  /**here i destructure 'githubUser' */
+  const { githubUser } = React.useContext(GithubContext)
+
+  /**here i destructuring specific 'props' on 
+   * 'githubUser'*/  
+  const { avatar_url, 
+          html_url, 
+          name, 
+          company, 
+          blog, 
+          bio, 
+          location, 
+          twitter_username} = githubUser;
+
+  console.log('this is provided on Card ==>', githubUser)
+
+  return(
+    /**here i render the specific props from the 'user' */
+    <Wrapper>
+      <header>
+        <img src={avatar_url} alt={name}/>
+      <div>
+        <h4>{name}</h4>
+        {/**i use shortcircuit operator to hanlde missing
+         * props */}
+        <p>@{twitter_username || 'default user' }</p>
+      </div>
+      <a href={html_url}>follow</a>
+      </header>
+      <p className='bio'>{bio}</p>
+      <div className='links'>
+        <p><MdBusiness />{company}</p>
+        <p><MdLocationOn />{location || 'earth'}</p>
+        <a href={`https://${blog}`}>
+          <MdLink /> {blog}
+        </a>
+      </div>
+    </Wrapper>
+  );
 };
 const Wrapper = styled.article`
   background: var(--clr-white);
@@ -13,6 +71,7 @@ const Wrapper = styled.article`
   border-bottom-right-radius: var(--radius);
   position: relative;
   &::before {
+    /**here i can change the 'Card' label*/
     content: 'user';
     position: absolute;
     top: 0;
