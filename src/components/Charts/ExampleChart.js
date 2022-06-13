@@ -8,61 +8,30 @@ import Charts from 'fusioncharts/fusioncharts.charts';
 
 
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-/**Github-search-users app version 4 - 'ExampleChart' js 
+/**Github-search-users app version 5 - 'ExampleChart' js 
  * file - Features:
  * 
- *      --> Building a 'ChartComponent' to replace the 
- *          class Component from 'fusioncharts' library.
+ *      --> Modifying 'chartData' and placing it on 
+ *          the 'chartConfigs'
  * 
- *      --> Building an array for the API data, for
- *          later modification.
+ * Notes: this data will become dinamyc on the next versions
  * 
- * Notes: In this first approach to start get famimiliar with 
- * the chart i checked fusioncharts > integration > React
- * 
- * ---reference >
- * 
- *  https://www.fusioncharts.com/react-charts?framework=react
- * 
- * In next version the 'chartData' will become dynamic by
- * separating it and drilling it back to 'ChartComponent'
- * in this version i'm making the array 'chartData'.
  * */
 
-/**here is the array build to modifify the data */
+/**here i modifify the data */
 const chartData = [
-    {
-      "label": "Venezuela",
-      "value": "290"
-    },
-    {
-      "label": "Saudi",
-      "value": "260"
-    },
-    {
-      "label": "Canada",
-      "value": "180"
-    },
-    {
-      "label": "Iran",
-      "value": "140"
-    },
-    {
-      "label": "Russia",
-      "value": "115"
-    },
-    {
-      "label": "UAE",
-      "value": "100"
-    },
-    {
-      "label": "US",
-      "value": "30"
-    },
-    {
-      "label": "China",
-      "value": "30"
-    }
+  {
+    "label": "HTML",
+    "value": "13"
+  },
+  {
+    "label": "CSS",
+    "value": "25"
+  },
+  {
+    "label": "javaScript",
+    "value": "80"
+  },
 ]
 
 /**this is the root Component that comes with
@@ -85,41 +54,8 @@ const chartConfigs = {
       "numberSuffix": "K",
       "theme": "fusion"
     },
-    /**here i'll place 'chartData' */
-    "data": [
-      {
-        "label": "Venezuela",
-        "value": "290"
-      },
-      {
-        "label": "Saudi",
-        "value": "260"
-      },
-      {
-        "label": "Canada",
-        "value": "180"
-      },
-      {
-        "label": "Iran",
-        "value": "140"
-      },
-      {
-        "label": "Russia",
-        "value": "115"
-      },
-      {
-        "label": "UAE",
-        "value": "100"
-      },
-      {
-        "label": "US",
-        "value": "30"
-      },
-      {
-        "label": "China",
-        "value": "30"
-      }
-    ]
+    /**here place 'chartData' */
+    "data": chartData
   },
 };
 
