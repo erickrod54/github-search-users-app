@@ -2,8 +2,46 @@ import React from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 
+/**Github-search-users app version 3 - 'Followers' js 
+ * file - Features:
+ * 
+ *      --> Destructuring 'followers' on 'GithubContext'.
+ * 
+ *      --> Mapping and Rendering 'followers' array 
+ *          props 
+ * 
+ * Notes: This Component contain all the props 
+ * related with follower.  
+ * */
+
 const Followers = () => {
-  return <h2>followers component</h2>;
+
+  const { followers } = React.useContext(GithubContext);
+  
+  console.log('this is provided on Followers ==>', followers)
+  
+  return(
+    <Wrapper>
+      <div className='followers'>
+        {followers.map((follower, index) => {
+            const { avatar_url: img, 
+                    html_url, 
+                    login} = follower;
+          return(
+            <article key={index}>
+              <img src={img} alt={login}/>
+              <div>
+                <h4>{login}</h4>
+              <a href={html_url}>
+                {html_url}
+              </a>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.article`
