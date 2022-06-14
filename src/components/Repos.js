@@ -3,24 +3,32 @@ import styled from 'styled-components';
 import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 
-/**Github-search-users app version 6 - 'Repos' js 
+/**Github-search-users app version 8 - 'Repos' js 
  * file - Features:
  * 
- *      --> Placing 'chartData' in order to directly
- *          work with the 'repos' data. 
+ *      -->Commenting 'ExampleChart' - (is reference
+ *        to build the charts).
  * 
- * Notes: This Component contain all the props 
- * related with the repos. 
+ *      -->Placing 'Pie3D' Component in order to
+ *         display the new chart.
  * 
- * So first i test the data, then i start to set'ExampleChart' 
- * to display the 'repos' data previously tested  
+ *      --> Reducing on 'repos' data -accesing test- 
  * 
- * In this version any modification on the data will reflect
- * on the 'chartComponent'
+ * Notes: In this version i build a test just to know
+ * that i'm accessing the object properly.
  * */
 const Repos = () => {
   
   const { repos } = React.useContext(GithubContext)
+
+  /**applying reduce on repos is to calculate a  
+   * 'total' -the total that i want is 'the most
+   * language used' or 'popular' by the github-user 
+   * searched-*/
+  let Languages = repos.reduce((total,item) => {
+    console.log('this is Repo > reduce ( test for each iteration - i made like this to test that i can access every object) ==>',item);
+    return total;
+  }, {})
 
   /**here i modifify the data */
   const chartData = [
@@ -43,7 +51,8 @@ const Repos = () => {
   return(
     <section className='section'>
       <Wrapper className='section-center'>
-        <ExampleChart data={ chartData }/>
+        {/**<ExampleChart data={ chartData }/> */}
+        <Pie3D data={chartData}/>
       </Wrapper>
     </section>
   );
