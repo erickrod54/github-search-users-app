@@ -8,27 +8,22 @@ import Charts from 'fusioncharts/fusioncharts.charts';
 
 
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-/**Github-search-users app version 6 - 'ExampleChart' js 
+/**Github-search-users app version 7 - 'ExampleChart' js 
  * file - Features: 
  * 
- *      --> Separating 'chartData' from the 'ChartComponent'
- *          to make it dynamicly.
+ *      --> Changing chart 'type' from 'column2d'
+ *        'bar3d'   
  * 
- * Notes: the data will be moved to 'Repos' Component and
- * drilled back to the 'ChartComponent'.
+ * Notes: Change the 'chart' types depends on how
+ * similar are the objects to succed with the 
+ * configuration, exploring the graphs on:
  * 
- * There's two important reasons on moving the data, first
- * the data will be moved to 'Repos' because there will be
- * filled directly with the 'Repos' data that i previously
- * tested.
+ *  -->https://www.fusioncharts.com/charts/column-bar-charts/
  * 
- * And the second reason is that when i drilled the data
- * as a prop i can renamed so can become dynamic and i can
- * change the data as i need it.
- * 
- * Once drilled i have to move 'chartConfigs' inside of
- * 'ChartComponent' because 'chartsData' is drilled as
- * 'data' trought 'ExampleComponent'
+ * i can find similar objects that switch perfect
+ * as 'simple Column', 'Simple Bar', other objects
+ * can imply to do some more job to change the 'type'
+ * or even change the object
  * */
 
 /**this is the root Component that comes with
@@ -42,7 +37,7 @@ const ChartComponent = ({ data }) => {
   /**this is the 'chartConfig' here i can modify
    * directly the 'chart' and 'chart' type*/
   const chartConfigs = {
-    type: 'column2d',
+    type: 'bar3d',
     /**here i modidy the previous width */
     width: 400,
     height: 400,
