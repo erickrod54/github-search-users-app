@@ -3,34 +3,47 @@ import styled from 'styled-components';
 import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 
-/**Github-search-users app version 4 - 'Repos' js 
+/**Github-search-users app version 6 - 'Repos' js 
  * file - Features:
  * 
- *      --> Destructuring 'repos' on 'GithubContext'.
- * 
- *      --> Importing and Placing the 'ExampleChart'
- *          in order to start working on charts.
- * 
- *      --> Wrapping with 'Wrapper' Style Component
- *          the 'ExampleChart' to style it.
+ *      --> Placing 'chartData' in order to directly
+ *          work with the 'repos' data. 
  * 
  * Notes: This Component contain all the props 
  * related with the repos. 
  * 
- * So first i test the data, then i start to set
- * 'ExampleChart' to display the 'repos' data previously
- * tested  
+ * So first i test the data, then i start to set'ExampleChart' 
+ * to display the 'repos' data previously tested  
+ * 
+ * In this version any modification on the data will reflect
+ * on the 'chartComponent'
  * */
 const Repos = () => {
   
   const { repos } = React.useContext(GithubContext)
+
+  /**here i modifify the data */
+  const chartData = [
+  {
+    "label": "HTML",
+    "value": "13"
+  },
+  {
+    "label": "CSS",
+    "value": "100"
+  },
+  {
+    "label": "javaScript",
+    "value": "80"
+  },
+]
   
   console.log('this is provided on Repos ==>',repos )
 
   return(
     <section className='section'>
       <Wrapper className='section-center'>
-        <ExampleChart />
+        <ExampleChart data={ chartData }/>
       </Wrapper>
     </section>
   );
