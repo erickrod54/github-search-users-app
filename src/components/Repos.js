@@ -3,47 +3,65 @@ import styled from 'styled-components';
 import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 
-/**Github-search-users app version 9 - 'Repos' js 
+/**Github-search-users app version 10 - 'Repos' js 
  * file - Features:
- * 
- *      --> Reducing on 'repos' -second test to
- *          depurate data- 
  * 
  *      --> Building 'total' prop for each language
  *          dynamicly.
  * 
- * Notes: in this version i am depurating 'null'
- * values from every 'language' prop  and creating
- * the 'total' prop to totalize the languages by this
- * version in total i'm setting a dummy value '30'
- * to check in that the 'prop' in fact was created.
+ *      --> Building 'Languages' object reducing and
+ *          and creating dynamicly 'props' exactly 
+ *          as the 'chartData' object. 
  * 
+ * Notes: the object created at 
+ * 
+ *  if (!total[language]) {
+ * 
+ * is exactly the same as the 'charData' object so
+ * can drilled throoght the 'Pie3D' chart and set 
+ * dynamicly the data directly from 'repos' this 
+ * case being reduce to 'languages' instace
  * */
 const Repos = () => {
   
   const { repos } = React.useContext(GithubContext)
 
-  /**building 'total' prop for each language 
-   * dynamicly-*/
+  /**building 'total' prop totalize and calculate
+   * most popular language*/
   let Languages = repos.reduce((total,item) => {
-    /**i destructure from the iteration the 
-     * 'language' prop */
+    
     const { language } = item;
-    /**with this condition i got rid of
-     * the 'null' values*/
-    if (!language) return total;
-    console.log('from each iteration i got the language of each repo ==>',language);
 
-    /**this way i create the language 'prop' to
-     * totalize dynamicly in every object -so
-     * if i have more languages they will add
-     * dynamicly-*/
-    total[language] = 30;
-    console.log('this is total', total)
+    if (!language) return total;
+    /**if there is not this instnce */
+    if (!total[language]) {
+    /**then create the instance with the value of 1 */
+    
+    /**this object is created to set dynamicly values
+     * to the chart*/
+      total[language] = {label:language, value: 1};
+    } else {
+      /**if there is already created, just acummulate */
+      total[language] = {...total[language], value: total[language].value + 1 };
+    }
 
 
     return total;
   }, {})
+
+  /**turning the 'languages' object back into an Array 
+   * sorting by from top value to the low value 
+   * taking a slice of '5' languages if the profile 
+   * has it*/
+  let LanguagesArray = Object.values(Languages).sort((a,b) => {
+    return b.value - a.value
+  }).slice(0, 5);
+
+  console.log('turning the languages object back into an Array ==>', LanguagesArray)
+
+  /**i can se the result acummulating the 
+   * languages from all the repos */
+  console.log('reduce resulting total of every language ==> ',Languages)
 
   /**here i modifify the data */
   const chartData = [
@@ -61,13 +79,14 @@ const Repos = () => {
   },
 ]
   
-  console.log('this is provided on Repos ==>',repos )
+  //console.log('this is provided on Repos ==>',repos )
 
   return(
     <section className='section'>
       <Wrapper className='section-center'>
         {/**<ExampleChart data={ chartData }/> */}
-        <Pie3D data={chartData}/>
+        {/**here i drilled the array '' */}
+        <Pie3D data={LanguagesArray}/>
       </Wrapper>
     </section>
   );
