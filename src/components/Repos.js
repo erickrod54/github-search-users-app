@@ -3,30 +3,45 @@ import styled from 'styled-components';
 import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 
-/**Github-search-users app version 8 - 'Repos' js 
+/**Github-search-users app version 9 - 'Repos' js 
  * file - Features:
  * 
- *      -->Commenting 'ExampleChart' - (is reference
- *        to build the charts).
+ *      --> Reducing on 'repos' -second test to
+ *          depurate data- 
  * 
- *      -->Placing 'Pie3D' Component in order to
- *         display the new chart.
+ *      --> Building 'total' prop for each language
+ *          dynamicly.
  * 
- *      --> Reducing on 'repos' data -accesing test- 
+ * Notes: in this version i am depurating 'null'
+ * values from every 'language' prop  and creating
+ * the 'total' prop to totalize the languages by this
+ * version in total i'm setting a dummy value '30'
+ * to check in that the 'prop' in fact was created.
  * 
- * Notes: In this version i build a test just to know
- * that i'm accessing the object properly.
  * */
 const Repos = () => {
   
   const { repos } = React.useContext(GithubContext)
 
-  /**applying reduce on repos is to calculate a  
-   * 'total' -the total that i want is 'the most
-   * language used' or 'popular' by the github-user 
-   * searched-*/
+  /**building 'total' prop for each language 
+   * dynamicly-*/
   let Languages = repos.reduce((total,item) => {
-    console.log('this is Repo > reduce ( test for each iteration - i made like this to test that i can access every object) ==>',item);
+    /**i destructure from the iteration the 
+     * 'language' prop */
+    const { language } = item;
+    /**with this condition i got rid of
+     * the 'null' values*/
+    if (!language) return total;
+    console.log('from each iteration i got the language of each repo ==>',language);
+
+    /**this way i create the language 'prop' to
+     * totalize dynamicly in every object -so
+     * if i have more languages they will add
+     * dynamicly-*/
+    total[language] = 30;
+    console.log('this is total', total)
+
+
     return total;
   }, {})
 
