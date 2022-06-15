@@ -2,13 +2,10 @@ import React from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 
-/**Github-search-users app version 3 - 'Followers' js 
+/**Github-search-users app version 10 - 'Followers' js 
  * file - Features:
  * 
- *      --> Destructuring 'followers' on 'GithubContext'.
- * 
- *      --> Mapping and Rendering 'followers' array 
- *          props 
+ *      --> Commenting logs.
  * 
  * Notes: This Component contain all the props 
  * related with follower.  
@@ -18,7 +15,7 @@ const Followers = () => {
 
   const { followers } = React.useContext(GithubContext);
   
-  console.log('this is provided on Followers ==>', followers)
+  //console.log('this is provided on Followers ==>', followers)
   
   return(
     <Wrapper>

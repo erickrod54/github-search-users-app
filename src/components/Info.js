@@ -57,7 +57,7 @@ const UserInfo = () => {
   }
 ]
           
-  console.log('this is provided by GitHubProvider ==>', githubUser)
+  //console.log('this is provided by GitHubProvider ==>', githubUser)
   
   return(
     /**here i made a render by 'id' and spreading 'props'*/

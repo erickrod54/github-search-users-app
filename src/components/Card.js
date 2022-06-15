@@ -3,19 +3,10 @@ import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
 
-/**Github-search-users app version 3 - 'User' js file - 
+/**Github-search-users app version 10 - 'User' js file - 
  * Features:
  * 
- *      --> Destructuring 'githubUser' on  'useContext'.
- * 
- *      --> Destructuring specific props in order to 
- *          render specific 'user' information.
- * 
- *      --> Placing icons next to the props being 
- *          rendered.
- * 
- *      --> Wraaping 'props' using 'Wrapper' Style 
- *          Component to set styles
+ *      --> Commenting logs.
  * 
  * Notes:  This Component renders specific information about
  * the user.
@@ -37,7 +28,7 @@ const Card = () => {
           location, 
           twitter_username} = githubUser;
 
-  console.log('this is provided on Card ==>', githubUser)
+  //console.log('this is provided on Card ==>', githubUser)
 
   return(
     /**here i render the specific props from the 'user' */
