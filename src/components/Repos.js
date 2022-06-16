@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 
-/**Github-search-users app version 11 - 'Repos' js 
+/**Github-search-users app version 12 - 'Repos' js 
  * file - Features:
  * 
- *      --> Adding 'responsiveness' to the chart. 
+ *      --> Placing 'Doughnut2D' Component. 
  * 
  * Notes: the code in the 'Wrapper' is related with the 
  * code in the 'Pie3D' chart about the 'relative' width. 
@@ -76,7 +76,12 @@ const Repos = () => {
       <Wrapper className='section-center'>
         {/**<ExampleChart data={ chartData }/> */}
         {/**here i drilled the array '' */}
-        <Pie3D data={LanguagesArray}/>
+          <Pie3D data={LanguagesArray}/>
+          {/**this divs separates the charts*/}
+        <div></div>
+          {/**here i place the 'Doughnut2D' Component */}
+          <Doughnut2D data={chartData}/>
+        <div></div>
       </Wrapper>
     </section>
   );
