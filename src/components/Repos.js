@@ -3,24 +3,14 @@ import styled from 'styled-components';
 import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 
-/**Github-search-users app version 10 - 'Repos' js 
+/**Github-search-users app version 11 - 'Repos' js 
  * file - Features:
  * 
- *      --> Building 'total' prop for each language
- *          dynamicly.
+ *      --> Adding 'responsiveness' to the chart. 
  * 
- *      --> Building 'Languages' object reducing and
- *          and creating dynamicly 'props' exactly 
- *          as the 'chartData' object. 
+ * Notes: the code in the 'Wrapper' is related with the 
+ * code in the 'Pie3D' chart about the 'relative' width. 
  * 
- * Notes: the object created at 
- * 
- *  if (!total[language]) {
- * 
- * is exactly the same as the 'charData' object so
- * can drilled throoght the 'Pie3D' chart and set 
- * dynamicly the data directly from 'repos' this 
- * case being reduce to 'languages' instace
  * */
 const Repos = () => {
   
@@ -96,6 +86,10 @@ const Wrapper = styled.div`
   display: grid;
   justify-items: center;
   gap: 2rem;
+  /**this makes a grid template
+  * in the measure that i am adding
+  * charts they into this template
+  * */
   @media (min-width: 800px) {
     grid-template-columns: 1fr 1fr;
   }
@@ -103,7 +97,11 @@ const Wrapper = styled.div`
   @media (min-width: 1200px) {
     grid-template-columns: 2fr 3fr;
   }
-
+ 
+  /**this block is related with the responsiveness
+  * '!important' flags to avoid dealing with inline
+  * 'css' ( because 'fusioncharts' is a third-party ) 
+  * */
   div {
     width: 100% !important;
   }
@@ -114,6 +112,7 @@ const Wrapper = styled.div`
     width: 100% !important;
     border-radius: var(--radius) !important;
   }
+ 
 `;
 
 export default Repos;
