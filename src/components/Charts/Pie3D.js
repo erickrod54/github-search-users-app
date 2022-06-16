@@ -8,22 +8,15 @@ import Charts from 'fusioncharts/fusioncharts.charts';
 
 
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-/**Github-search-users app version 9 - 'Pie3D' Chart
+/**Github-search-users app version 11 - 'Pie3D' Chart
  * Component - Features: 
  * 
- *      --> Copying the exact same code as i have
- *          on 'ExampleChart'.
+ *      --> Adding responsiveness to the chart. 
  * 
- *      --> Customizing 'chart' object 'props'. 
- * 
- * Notes: The exact same code of 'ExampleChart' 
- * Component has been coppied here to make easier
- * to modify the Chart, and as the 'data' is already
- * dynamic i can modify the data form 'Repo' 
- * Component
- * 
- * The chart object props 'pie3d' i can find it
- * out in the documentation of the chart.
+ * Notes: Just adding the 'relative' width, and targeting
+ * the parent elements -code in the Wrapper- using 'div',
+ * 'fusion-charts-container', and 'svg' with the grid
+ * template the charts will become responsive.  
  * */
 
 /**this is the root Component that comes with
@@ -39,7 +32,7 @@ const ChartComponent = ({ data }) => {
   const chartConfigs = {
     type: 'pie3d',
     /**here i modidy the previous width */
-    width: 400,
+    width: '100%',
     height: 400,
     dataFormat: 'json',
     dataSource: {
