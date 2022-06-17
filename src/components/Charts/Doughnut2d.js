@@ -6,14 +6,16 @@ import FusionCharts from 'fusioncharts';
 
 import Charts from 'fusioncharts/fusioncharts.charts';
 
-
-import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-/**Github-search-users app version 11 - 'Doughnut2d' Chart
+/**switching theme - i have to switched also on the import-*/
+import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.candy';
+/**Github-search-users app version 12 - 'Doughnut2d' Chart
  * Component - Features: 
  * 
- *      --> Copying exact same code as 'Pie3D'.
+ *      --> Changing 'caption' prop to 'stars Per 
+ *          Language' 
  * 
- *      --> Changing 'type' prop to 'doughnut2d'.  
+ *      --> Adding props 'doughnutRadius', 
+ *        'showPercentValues', and new 'theme' value
  * 
  * Notes: Just modifying the type prop to 'doughnut2d' 
  * */
@@ -37,19 +39,16 @@ const ChartComponent = ({ data }) => {
     dataSource: {
       "chart": {
         /**this will be the title */
-        'caption':'Languages',
-        /**this will be the theme */
-        "theme": "fusion",
-        /**as the chart calculate the portions
-         * of data in percentage i can do them
-         * exact with this line*/
+        'caption':'Stars Per Language',
         'decimals':'0',
-        /**this is the size of the chart */
-        'pieRadius':'45%',
-        /**there is another prop related with
-         * the color pallete in order if i have
-         * more data it won't ran out of colors
-         * to be labeled*/
+        /**this is the size of the chart 
+         * -the name changes -reference to 
+         * documentation- */
+        'doughnutRadius':'45%',
+        /**to show exact values */
+        'showPercentValues': 0,
+        /**switching theme*/
+        'theme':'candy'
       },
       /**here place 'chartData' */
       data
