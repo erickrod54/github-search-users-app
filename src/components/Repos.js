@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { GithubContext } from '../context/context';
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 
-/**Github-search-users app version 12 - 'Repos' js 
+/**Github-search-users app version 13 - 'Repos' js 
  * file - Features:
  * 
- *      --> Placing 'Doughnut2D' Component. 
+ *      --> Calculationg 'Start Per Langueage' and 
+ *          render them on 'Doughnut2D' Component. 
  * 
  * Notes: the code in the 'Wrapper' is related with the 
  * code in the 'Pie3D' chart about the 'relative' width. 
@@ -20,7 +21,8 @@ const Repos = () => {
    * most popular language*/
   let Languages = repos.reduce((total,item) => {
     
-    const { language } = item;
+    /**i destructure the stars */
+    const { language, stargazers_count } = item;
 
     if (!language) return total;
     /**if there is not this instnce */
@@ -28,11 +30,16 @@ const Repos = () => {
     /**then create the instance with the value of 1 */
     
     /**this object is created to set dynamicly values
-     * to the chart*/
-      total[language] = {label:language, value: 1};
+     * to the chart, i add the 'stars' prop*/
+      total[language] = {label:language, value: 1, 
+        stars: stargazers_count};
     } else {
-      /**if there is already created, just acummulate */
-      total[language] = {...total[language], value: total[language].value + 1 };
+      /**if there is already created, just acummulate,
+       * i add the stars, even if is '0' */
+      total[language] = {...total[language], 
+      value: total[language].value + 1,
+      stars: total[language].stars + stargazers_count,
+    };
     }
 
 
@@ -46,6 +53,20 @@ const Repos = () => {
   let LanguagesArray = Object.values(Languages).sort((a,b) => {
     return b.value - a.value
   }).slice(0, 5);
+
+
+  /**Now i add the 'stars' calculation here */
+  /**the difference is that i map and overwrite
+   * the value with 'item.stars'*/
+
+  /**'item.stars' is the value that the chart needs' */
+  let MostStarsArray = Object.values(Languages).sort((a,b) => {
+    return b.stars - a.stars;
+  }).map((item) => {
+    return {...item, value: item.stars}
+  }).slice(0, 5);
+
+  console.log('turning the languages object back into an Array for stars==>', MostStarsArray)
 
   console.log('turning the languages object back into an Array ==>', LanguagesArray)
 
@@ -80,7 +101,7 @@ const Repos = () => {
           {/**this divs separates the charts*/}
         <div></div>
           {/**here i place the 'Doughnut2D' Component */}
-          <Doughnut2D data={chartData}/>
+          <Doughnut2D data={MostStarsArray}/>
         <div></div>
       </Wrapper>
     </section>
