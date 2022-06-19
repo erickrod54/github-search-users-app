@@ -3,10 +3,10 @@ import { Info, Repos, User, Search, Navbar } from '../components';
 import loadingImage from '../images/preloader.gif';
 import { GithubContext } from '../context/context';
 
-/**Github-search-users app version 4 - 'Dashboard' 
+/**Github-search-users app version 15 - 'Dashboard' 
  * Component - Features:
  * 
- *      --> Uncommenting 'Repo' Componnet in order to 
+ *      --> Uncommenting 'Search' Componnet in order to 
  *          work on it.
  * 
  * 
@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <main>
       {/**<Navbar /> */}
-      {/**<Search /> */}
+      <Search />
       <Info />
       <User />
       <Repos />
