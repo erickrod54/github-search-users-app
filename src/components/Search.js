@@ -3,24 +3,22 @@ import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { GithubContext } from '../context/context';
 
-/**Github-search-users app version 15 - 'Search' 
+/**Github-search-users app version 16 - 'Search' 
  * Component - Features:
  * 
- *      --> Building the state for the 'user'.
+ *      --> Destructuring 'request' and 'error'
+ *          from the Provider.  
  * 
- *      --> Building a controlled input setting 
- *          'handleSubmit'.
- * 
- *      --> Building Basic form for the 'Search'
- *          Component.
- * 
- * Notes: next versions are going to get the whole 
- * functionality from the context js
+ * Notes: these values are destructured in order to 
+ * place and show the error
 */
 
 const Search = () => {
   const [ user, setUser ] = React.useState('');
-  // get things from global context
+  
+  /**i destructure 'request' and 'error' from the 
+   * provider */
+  const { request, error } = React.useContext(GithubContext)
 
   const handleSubmit = (e) => {
     /**to prevent the refresh and take 
@@ -36,14 +34,28 @@ const Search = () => {
   return(
     <section className='section'>
         <Wrapper className='section-center'>
+          {/**here i show the error 'msg' */}
+          {error.show &&
+            <ErrorWrapper>
+              <p>{error.msg}</p>  
+            </ErrorWrapper>}
           <form onSubmit={handleSubmit}>
             <div className='form-control'>
               <MdSearch />
-              <input type='text' placeholder='enter github user' value={user} onChange={(e) => setUser(e.target.value)}/>
-              <button type='submit'>search</button>
+              <input 
+                type='text' 
+                placeholder='enter github user' 
+                value={user} 
+                onChange={(e) => setUser(e.target.value)}/>
+
+                {/**only will show the 'search' button
+                 * depending on the 'request' existence*/}
+                { request > 0 && 
+                  <button type='submit'>search</button>
+                }
             </div>
           </form>
-          <h3>request: 60 / 60</h3>
+          <h3>request: { request } / 60</h3>
         </Wrapper>
     </section>
   );
