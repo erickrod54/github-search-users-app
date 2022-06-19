@@ -2,8 +2,51 @@ import React from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { GithubContext } from '../context/context';
+
+/**Github-search-users app version 15 - 'Search' 
+ * Component - Features:
+ * 
+ *      --> Building the state for the 'user'.
+ * 
+ *      --> Building a controlled input setting 
+ *          'handleSubmit'.
+ * 
+ *      --> Building Basic form for the 'Search'
+ *          Component.
+ * 
+ * Notes: next versions are going to get the whole 
+ * functionality from the context js
+*/
+
 const Search = () => {
-  return <h2>search component</h2>;
+  const [ user, setUser ] = React.useState('');
+  // get things from global context
+
+  const handleSubmit = (e) => {
+    /**to prevent the refresh and take 
+     * control over the input once submit*/
+    e.preventDefault()
+    console.log(user);
+
+    if (user) {
+      
+    }
+  }
+
+  return(
+    <section className='section'>
+        <Wrapper className='section-center'>
+          <form onSubmit={handleSubmit}>
+            <div className='form-control'>
+              <MdSearch />
+              <input type='text' placeholder='enter github user' value={user} onChange={(e) => setUser(e.target.value)}/>
+              <button type='submit'>search</button>
+            </div>
+          </form>
+          <h3>request: 60 / 60</h3>
+        </Wrapper>
+    </section>
+  );
 };
 
 const Wrapper = styled.div`
