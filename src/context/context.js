@@ -6,21 +6,21 @@ import axios from 'axios';
 
 const rootUrl = 'https://api.github.com';
 
-/**Github-search-users app version 2 - 'context' js file - 
+/**Github-search-users app version 15 - 'context' js file - 
  * Features:
  * 
- *      --> Building states in order to use the 'mockData'
+ *      --> Building states for 'request' and 'loading'.
  * 
- *      --> Providing 'data' states 'githubUser', 'repos',
- *          and 'followers' 
+ *      --> Building 'checkRequest' using axios library
+ *          to get the data back from the API.
  * 
+ *      --> Building 'useEffect' to invoke 'checkRequest'
+ *          once the app is loaded.     
  * 
- * Notes: 'mockData' can be customized checking the readme 
- * for further approach in this matter.
+ * Notes: In next version i'll pull the 'data' 
+ * destructuring it and start to work on it on detail
  * 
- * The data states are provided in order to build info
- * component -component previously tested with a 'hello'
- * value- */
+ * */
 
 /**invoking 'React.createContext()' i have access to
  * Provider and Consumer method*/
@@ -32,6 +32,24 @@ const GithubProvider = ({ children }) => {
     const [ githubUser, setGithubUser ] = useState(mockUser);
     const [ repos, setRepos ] = useState(mockRepos);
     const [ followers, setFollowers ] = useState(mockFollowers)
+
+    /**here i request 'loading' */
+    const [ request, setRequest ] = useState(0);
+    /**loading state */
+    const [ loading, setLoading ] = useState(false);
+    
+    /**this will check for the rate limit -the request
+     * number - reference to README github API-*/
+    const checkRequest = () => {
+        axios(`${rootUrl}/rate_limit`)
+        .then((data) => { console.log('resulting promise data request from the API ==>', data)})
+        .catch((err) => console.log(err))
+    }
+
+    /**Once the app is loaded i check for requests */
+    useEffect(() => {
+        checkRequest()
+    },[])
 
     /**here i provided as values */
     return <GithubContext.Provider 
