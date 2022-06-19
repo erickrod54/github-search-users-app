@@ -90,7 +90,7 @@ const Repos = () => {
     stars:{}, forks:{}
   })
 
-  console.log('The stars object returned for Column3D (object with label and value props) ==>',stars)
+  //console.log('The stars object returned for Column3D (object with label and value props) ==>',stars)
 
   /**here i turned the 'stars' object into an Array and
    * reordered using 'reverse' to get the values 
@@ -98,7 +98,7 @@ const Repos = () => {
   const starsArray = Object.values(stars)
   .slice(-5).reverse()
 
-  console.log('The stars object turned into an array ==>', starsArray)
+  //console.log('The stars object turned into an array ==>', starsArray)
 
   /**here i make the same with "forks" */
   const forksArray = Object.values(forks)
@@ -115,13 +115,13 @@ const Repos = () => {
     return {...item, value: item.stars}
   }).slice(0, 5);
 
-  console.log('turning the languages object back into an Array for stars==>', MostStarsArray)
+  //console.log('turning the languages object back into an Array for stars==>', MostStarsArray)
 
-  console.log('turning the languages object back into an Array ==>', LanguagesArray)
+  //console.log('turning the languages object back into an Array ==>', LanguagesArray)
 
   /**i can se the result acummulating the 
    * languages from all the repos */
-  console.log('reduce resulting total of every language ==> ',Languages)
+ // console.log('reduce resulting total of every language ==> ',Languages)
 
  
   
