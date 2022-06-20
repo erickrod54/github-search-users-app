@@ -6,19 +6,15 @@ import axios from 'axios';
 
 const rootUrl = 'https://api.github.com';
 
-/**Github-search-users app version 16 - 'context' js file - 
+/**Github-search-users app version 17 - 'context' js file - 
  * Features:
  * 
- *      --> Destructuring 'remaining' prop from 'data'.
+ *      --> Building the 'loading' feature.     
  * 
- *      -->  Building the state for 'error'    
- * 
- * Notes: In next this version i pull out the 'data' 
- * destructuring it and start to work on it on detail
- *
- * The error state is an 'object key' of 'show' and 'msg'
- * props to handle if will show based so far on the 
- * 'remaining' requests and deliver the messages 
+ * Notes: the state has been built here, and i'll be set
+ * as 'true' when i type to submit a request from the 'API'
+ * the value 'isLoading' is going to be provided to
+ *  the 'Dashboard' and 'Search' Components. 
  * */
 
 /**invoking 'React.createContext()' i have access to
@@ -35,26 +31,48 @@ const GithubProvider = ({ children }) => {
     /**here i request 'loading' */
     const [ request, setRequest ] = useState(0);
     /**loading state */
-    const [ loading, setLoading ] = useState(false);
+    const [ isLoading, setIsloading ] = useState(false);
+
     /**here is the state for error */
     const [ error, setError ] = useState({
         show: false,
         msg: ''
     }) 
+
+
+    const searchGithubUser = async(user) => {
+        //toggleError
+        /**here is set loading to true */
+        setIsloading(true)
+
+        const response = await axios(`${rootUrl}/users/${user}`)
+        .catch(err => console.log(err))
+
+        console.log('The user i get from the API ==>', response)
+
+        if (response) {
+            setGithubUser(response.data)
+        }else{
+            toggleError(true, 'there is no user with that username')
+        }
+        /**at the end of the previous block
+         * i invoke 'checkRequest()' and pass again
+         * 'setIsLloading' to 'false'
+         */
+        checkRequest();
+        setIsloading(false)
+    }
+
     /**this will check for the rate limit -the request
      * number - reference to README github API-*/
     const checkRequest = () => {
         axios(`${rootUrl}/rate_limit`)
+        .then(({data}) => { 
 
-        /**here i destrucure remaining */
-        .then(({data}) => {
-            /**from 'data' i destructure 'remaining' */ 
             let {
                 rate: { remaining },
             } = data;
 
-            /**i set request to the value of remaining 
-             * requests*/
             setRequest(remaining)
             console.log('the remaining request value  from data ===>', remaining)
             if (remaining === 0) {
@@ -83,7 +101,9 @@ const GithubProvider = ({ children }) => {
                 repos,
                 followers,
                 request,
-                error
+                error,
+                searchGithubUser,
+                isLoading,
             }}>{children}
     </GithubContext.Provider>
 }
