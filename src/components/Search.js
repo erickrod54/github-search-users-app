@@ -3,14 +3,17 @@ import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { GithubContext } from '../context/context';
 
-/**Github-search-users app version 16 - 'Search' 
+/**Github-search-users app version 17 - 'Search' 
  * Component - Features:
  * 
- *      --> Destructuring 'request' and 'error'
- *          from the Provider.  
+ *      --> Destructuring 'isLoading' value. 
  * 
- * Notes: these values are destructured in order to 
- * place and show the error
+ *      --> Hidding the search button using 
+ *          the '!isLoading' value.
+ * 
+ * Notes: As the 'isLoading' value is true the button
+ * will be hidden that's why '!isLoading' is added.
+ * 
 */
 
 const Search = () => {
@@ -18,16 +21,17 @@ const Search = () => {
   
   /**i destructure 'request' and 'error' from the 
    * provider */
-  const { request, error } = React.useContext(GithubContext)
+  const { request, error, searchGithubUser, isLoading } = React.useContext(GithubContext)
 
   const handleSubmit = (e) => {
     /**to prevent the refresh and take 
      * control over the input once submit*/
     e.preventDefault()
-    console.log(user);
-
+    
+    /**if user exist, i pass it to 
+     * 'searchGithubUser' */
     if (user) {
-      
+      searchGithubUser(user);
     }
   }
 
@@ -49,8 +53,9 @@ const Search = () => {
                 onChange={(e) => setUser(e.target.value)}/>
 
                 {/**only will show the 'search' button
-                 * depending on the 'request' existence*/}
-                { request > 0 && 
+                 * depending on the 'request' and 
+                 * '!isLoading'existence*/}
+                { request > 0 && !isLoading &&
                   <button type='submit'>search</button>
                 }
             </div>
