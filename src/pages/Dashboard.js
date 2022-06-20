@@ -1,23 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Info, Repos, User, Search, Navbar } from '../components';
 import loadingImage from '../images/preloader.gif';
 import { GithubContext } from '../context/context';
 
-/**Github-search-users app version 16 - 'Dashboard' 
+/**Github-search-users app version 17 - 'Dashboard' 
  * Component - Features:
  * 
- *      --> Uncommenting 'Navbar' Componnet in order to 
- *          get enought space and visualize the error.
+ *      --> Destructuring 'isLoading' value
+ *          to set a conditional rendering.
  * 
+ *      --> Setting up in the conditional rendering
+ *          the spinner 'loadingImage'.
+ *
+ * Notes: the 'isLoading' value is destructured from
+ * the provider and with the conditional rendering 
+ * i show search and navbar and the spinner
  * 
- * Notes: here we can see rendered the components and start
- * modeling them.
- * 
- * Navbar Component is uncommented on this version in order
- * to get enought space and visualize the error
+ * The spinner always has to has three attributes 
+ *  'src', 'className'  and 'alt' 
 */
 
 const Dashboard = () => {
+
+  const { isLoading } = useContext(GithubContext)
+
+  
+
+  if (isLoading) {
+    return(
+      <main>
+        <Navbar /> 
+        <Search />  
+        <img 
+          src={loadingImage} 
+          className='loading-img' 
+          alt='loading'/>
+      </main>
+    )
+  }
+
   return (
     <main>
       <Navbar /> 
