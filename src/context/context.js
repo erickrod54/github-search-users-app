@@ -6,15 +6,23 @@ import axios from 'axios';
 
 const rootUrl = 'https://api.github.com';
 
-/**Github-search-users app version 17 - 'context' js file - 
+/**Github-search-users app version 18 - 'context' js file - 
  * Features:
  * 
- *      --> Building the 'loading' feature.     
+ *      --> Building 'url' to access to the 'repos' of
+ *          the searched profile.
  * 
- * Notes: the state has been built here, and i'll be set
- * as 'true' when i type to submit a request from the 'API'
- * the value 'isLoading' is going to be provided to
- *  the 'Dashboard' and 'Search' Components. 
+ *      --> Building 'url' to access to the 'followers' of
+ *          the searched profile.      
+ * 
+ * Notes: these links below are the reference to build the
+ * 'urls' for 'repos' and followers, the full reference is
+ * the README file:  
+ * 
+ *  [Repos](https://api.github.com/users/john-smilga/repos?per_page=100)
+ *  
+ * [Followers](https://api.github.com/users/john-smilga/followers)
+ * 
  * */
 
 /**invoking 'React.createContext()' i have access to
@@ -52,6 +60,21 @@ const GithubProvider = ({ children }) => {
 
         if (response) {
             setGithubUser(response.data)
+            const { login, followers_url } = response.data;
+
+            /**url for 'repos' */
+            
+            /**i use axios and build the 'url', once is
+             * i get the data i set it into the state value*/
+            axios(`${rootUrl}/users/${login}/repos?per_page=100`)
+            .then(response => setRepos(response.data))
+            
+            /**url for 'followers' */
+
+            /**i use axios and build the 'url', once is
+             * i get the data i set it into the state value*/
+            axios(`${followers_url}?per_page=100`)
+            .then(response => setFollowers(response.data))
         }else{
             toggleError(true, 'there is no user with that username')
         }
