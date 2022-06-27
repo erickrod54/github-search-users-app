@@ -6,23 +6,46 @@ import * as serviceWorker from './serviceWorker';
 import { GithubProvider } from './context/context';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-/**Github-search-users app version 1 - 'index' js file - 
+/**Github-search-users app version 19 - 'index' js file - 
  * Features:
  * 
- *      --> Wraping the 'App' with the Provider
- *          '<GithubProvider>'.
+ *      --> Wrapping the '<App>' with the 'AuthProvider'
+ *          to set authentication features.
  * 
+ * Notes: the 'Auth0Provider' object needs this data:
  * 
- * Notes: the 'GithubProvider' const with the provider
- * settings that was build in 'context' js is use now
- * to wrap the 'App'
+ * domain ==>
+ * dev-b4dh24tk.us.auth0.com
+ *
+ *  client ID ==>
+ * 
+ * ZbPdXZFtDkid2AhRhIN4pCGJ99d8EvLY
+ * 
+ * reference ==>
+ * 
+ * https://manage.auth0.com/dashboard/
+ * 
+ * Auth0 is an authentication provider and the way to set up
+ * reference on the Docs:
+ * 
+ *    reference ==>
+ * 
+ *  https://auth0.com/docs/quickstart/spa/react#add-login-to-your-application
+ *  
+ * the data can be set as an .env variable
 */
 
 ReactDOM.render(
   <React.StrictMode>
-    <GithubProvider>
-      <App />
-    </GithubProvider>
+    <Auth0Provider
+      domain="dev-b4dh24tk.us.auth0.com"
+      clientId="ZbPdXZFtDkid2AhRhIN4pCGJ99d8EvLY"
+      redirectUri={window.location.origin}
+     >
+      <GithubProvider>
+        <App />
+      </GithubProvider>
+     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
