@@ -6,23 +6,16 @@ import axios from 'axios';
 
 const rootUrl = 'https://api.github.com';
 
-/**Github-search-users app version 18 - 'context' js file - 
+/**Github-search-users app version 19 - 'context' js file - 
  * Features:
  * 
- *      --> Building 'url' to access to the 'repos' of
- *          the searched profile.
+ *      --> Refactoring axios data request with Promises 
+ *          in order to get all data at the same time.     
  * 
- *      --> Building 'url' to access to the 'followers' of
- *          the searched profile.      
- * 
- * Notes: these links below are the reference to build the
- * 'urls' for 'repos' and followers, the full reference is
- * the README file:  
- * 
- *  [Repos](https://api.github.com/users/john-smilga/repos?per_page=100)
- *  
- * [Followers](https://api.github.com/users/john-smilga/followers)
- * 
+ * Notes: the 'repos' and 'followers' data in previous
+ * version are obtained in different times, thats why
+ * comes Promises and axios implementation in this 
+ * version to address that issue.
  * */
 
 /**invoking 'React.createContext()' i have access to
@@ -62,19 +55,23 @@ const GithubProvider = ({ children }) => {
             setGithubUser(response.data)
             const { login, followers_url } = response.data;
 
-            /**url for 'repos' */
-            
-            /**i use axios and build the 'url', once is
-             * i get the data i set it into the state value*/
-            axios(`${rootUrl}/users/${login}/repos?per_page=100`)
-            .then(response => setRepos(response.data))
-            
-            /**url for 'followers' */
-
-            /**i use axios and build the 'url', once is
-             * i get the data i set it into the state value*/
-            axios(`${followers_url}?per_page=100`)
-            .then(response => setFollowers(response.data))
+            /**using 'Promise.allSettled' once i get
+             * the 'repo'-'followers' data back then i set
+             * it only if is 'fulfilled'*/
+            await Promise.allSettled([axios(`${rootUrl}/users/${login}/repos?per_page=100`), 
+            axios(`${followers_url}?per_page=100`)])
+            .then((results) => {
+                const [ repos, followers ] = results;
+                const status = 'fulfilled';
+                
+                if (repos.status === status) {
+                    setRepos(repos.value.data)
+                }
+                if (followers.status === status) {
+                    setFollowers(followers.value.data)
+                }
+                //console.log('the results after the Promise is all settled ==>', results)
+            }).catch(err => console.log(err.value))
         }else{
             toggleError(true, 'there is no user with that username')
         }
