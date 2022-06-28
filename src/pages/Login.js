@@ -2,22 +2,28 @@ import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import styled from 'styled-components';
 import loginImg from '../images/login-img.svg';
-/**Github-search-users app version 1 - 'Login' Component - 
+/**Github-search-users app version 20 - 'Login' Component - 
  * Features:
  * 
- *      -->Building the 'Login' page
+ *      --> Setting 'loginWithRedirect' method to 
+ *          get redirected to '/authorize' from
+ *          'Auth0' -issue with the authentication
+ *            does not behave as is supposed to be-
  * 
  * 
- * Notes: for this version i wrap the styles, and i set
- * the image for login background as well as the button
+ * Notes: There is an issue with the authentication feature
+ * most the times fail to redirect me to '/authorize' screen
 */
 const Login = () => {
+
+  const { loginWithRedirect } = useAuth0()
+  
   return(
     <Wrapper>
       <div className='container'>
         <img src={loginImg} alt='github user'/>
         <h1>github user</h1>
-        <button className='btn'>login</button>
+        <button className='btn' onClick={loginWithRedirect}>login / sign up</button>
       </div>
     </Wrapper>
   );
