@@ -1,24 +1,25 @@
 import React from 'react';
 import { Dashboard, Login, PrivateRoute, AuthWrapper, Error } from './pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-/**Github-search-users app version 1 - 'App' js file - Features:
+/**Github-search-users app version 20 - 'App' js file - Features:
  * 
- *      -->Setting up routing using react-router-dom
- *         library.
+ *      -->Setting up 'PrivateRoute' in order to
+ *         restrict the access only to authenticated 
+ *         users.
  * 
  * 
- * Notes: This setup is made with react router version 5
- * at the end of this project i'll update the implementation 
- * to version 6
+ * Notes: the code previously done on 'PrivateRoute' 
+ * Component has drill access to his children, this case
+ * coing
 */
 function App() {
   return (
     <div>
       <Router>
         <Switch>
-          <Route path='/' exact>
-            <Dashboard />
-          </Route>
+          <PrivateRoute path='/' exact={true}>
+            <Dashboard></Dashboard>
+          </PrivateRoute>
           <Route path='/login'>
             <Login />
           </Route>
