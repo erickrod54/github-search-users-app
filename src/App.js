@@ -1,20 +1,27 @@
 import React from 'react';
 import { Dashboard, Login, PrivateRoute, AuthWrapper, Error } from './pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-/**Github-search-users app version 20 - 'App' js file - Features:
+
+/**Github-search-users app version 21 - 'App' js file - 
+ * Features:
  * 
- *      -->Setting up 'PrivateRoute' in order to
- *         restrict the access only to authenticated 
- *         users.
+ *      -->Setting up 'AuthWrapper' in order to
+ *         to wrap the whole application and 
+ *         give acces to authenticated users.
  * 
  * 
- * Notes: the code previously done on 'PrivateRoute' 
- * Component has drill access to his children, this case
- * coing
+ * Notes: the previous version ( version 20 ) was with
+ * an apparent issue, but is not an issue, the 
+ * authentication previuosly set using the protected
+ * route and the 'login' code and 'PrivateRoute' code
+ * needs to handle the login that the goal with
+ * 'AuthWrapper'
 */
 function App() {
   return (
     <div>
+      <AuthWrapper>
+
       <Router>
         <Switch>
           <PrivateRoute path='/' exact={true}>
@@ -28,6 +35,8 @@ function App() {
           </Route>
         </Switch>
       </Router>
+      
+      </AuthWrapper>
       
     </div>
   );
