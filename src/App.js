@@ -1,21 +1,21 @@
 import React from 'react';
 import { Dashboard, Login, PrivateRoute, AuthWrapper, Error } from './pages';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-/**Github-search-users app version 21 - 'App' js file - 
+/**Github-search-users app version 22 - 'App' js file - 
  * Features:
  * 
- *      -->Setting up 'AuthWrapper' in order to
- *         to wrap the whole application and 
- *         give acces to authenticated users.
+ *      --> Implementing 'react-router version 6'
+ * 
+ *      --> Importing and placing 'Routes' instead
+ *          of 'SWITCH' -this component does not 
+ *          exist on version 6-
  * 
  * 
- * Notes: the previous version ( version 20 ) was with
- * an apparent issue, but is not an issue, the 
- * authentication previuosly set using the protected
- * route and the 'login' code and 'PrivateRoute' code
- * needs to handle the login that the goal with
- * 'AuthWrapper'
+ * Notes: the implementations 'changes' SWITCH for 
+ * 'Routes' and the 'Routes' are going to have 'path'
+ * 'element' prop, 'element' prop will contain the 
+ * Component that is going to be Routed. 
 */
 function App() {
   return (
@@ -23,17 +23,20 @@ function App() {
       <AuthWrapper>
 
       <Router>
-        <Switch>
-          <PrivateRoute path='/' exact={true}>
-            <Dashboard></Dashboard>
+
+        {/**here i place 'Routes' */}
+        <Routes>
+          {/**the 'PrivateRoute' is inside the 'element'
+           * prop wrapping the 'Dashboard'*/}
+          <Route path='/' element={
+          <PrivateRoute>
+             <Dashboard/>
           </PrivateRoute>
-          <Route path='/login'>
-            <Login />
-          </Route>
-          <Route path='*'>
-            <Error></Error>
-          </Route>
-        </Switch>
+        }/>
+          <Route path='/login' element={<Login />}/>
+          <Route path='*' element={<Error />}/>
+
+        </Routes>
       </Router>
       
       </AuthWrapper>
